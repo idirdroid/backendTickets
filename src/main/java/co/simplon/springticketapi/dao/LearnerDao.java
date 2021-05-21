@@ -34,6 +34,10 @@ public class LearnerDao implements Dao<Learner> {
         return jdbcTemplate.query("select * from learner", learnerRowMapper);
     }
 
+    public List<Learner> getAllByClassroom(int classroomId) {
+        return jdbcTemplate.query("select * from learner where classroom_idx = ?", learnerRowMapper, classroomId);
+    }
+
     @Override
     public Learner save(Learner learner) {
         KeyHolder keyHolder = new GeneratedKeyHolder();

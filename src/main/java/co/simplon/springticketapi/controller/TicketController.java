@@ -8,6 +8,7 @@ import java.util.List;
 
 @RequestMapping("/api/tickets")
 @RestController
+
 public class TicketController {
 
     private final TicketDao ticketDao;
@@ -16,9 +17,9 @@ public class TicketController {
         this.ticketDao = ticketDao;
     }
 
-    @GetMapping
-    public List<Ticket> getAllTickets() {
-        return ticketDao.getAll();
+    @GetMapping("/byclassroom/{id}")
+    public List<Ticket> getAllTickets(@PathVariable Long id) {
+        return ticketDao.getAllByClassroom(id);
     }
 
     @GetMapping("/{id}")

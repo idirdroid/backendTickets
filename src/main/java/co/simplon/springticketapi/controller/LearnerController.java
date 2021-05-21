@@ -8,6 +8,8 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/learners")
+@CrossOrigin(origins = "*")
+
 public class LearnerController {
 
     private LearnerDao learnerDao;
@@ -17,9 +19,9 @@ public class LearnerController {
     }
 
     // La liste des apprenants
-    @GetMapping
-    public List<Learner> getAllLearners() {
-        return learnerDao.getAll();
+    @GetMapping("/byclassroom/{id}")
+    public List<Learner> getAllLearners(@PathVariable int id) {
+        return learnerDao.getAllByClassroom(id);
     }
 
     // Un apprenant par son ID

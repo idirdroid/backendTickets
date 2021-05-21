@@ -31,7 +31,14 @@ public class TicketDao implements Dao<Ticket> {
 
     @Override
     public List<Ticket> getAll() {
-        return jdbcTemplate.query("select * from ticket", ticketRowMapper);
+        return jdbcTemplate.query("select * from ticket ORDER BY id ASC", ticketRowMapper);
+    }
+
+    public List<Ticket> getAllByClassroom(Long id) {
+        return jdbcTemplate.query("SELECT t.id as id, date, description, is_solved, learner_idx FROM ticket t\n" +
+                "inner join learner l on l.id = t.learner_idx\n" +
+                "inner join classroom c on c.id = l.classroom_idx\n" +
+                "WHERE l.classroom_idx = ?", ticketRowMapper, id);
     }
 
     @Override
